@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head th:replace="fragments/links">
+<title>Tagged Tweets</title>
+
+</head>
+<body>
+	<div class="container">
+		<div th:replace="fragments/navbar"></div>
+		<h2>Tweets containing #<span th:text="${tag}"></span></h2>
+		
+		<!-- HOMEWORK -->
+						<!--  iterate through and each time tweet will be a different value from ${tweetList} -->
+		<div class="list-group" th:each="tweet:${tweetList}">
+			<div class="list-group-item list-group-item-action">
+				<div class="d-flex w-100 justify-content-between">
+					<a class="username" th:href="@{/users/} + ${tweet.user.username}">
+					@<span th:text="${tweet.user.username}"></span></a>
+					<small> <span th:text="${tweet.date}></span></small>
+				</div>
+				<!-- utext outputs the html without showing the html code -->
+				<p class="mb-1" th:utext="${tweet.message}"></p>
+			</div>
+			
+			
+		</div>
+		<div th:if="${#lists.isEmpty(tweetList)}">
+			<h3>No tweets contain this hashtag</h3>
+		</div>
+	</div>
+</body>
+</html>
